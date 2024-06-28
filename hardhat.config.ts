@@ -45,18 +45,34 @@ const primarySolidityVersion = SOLIDITY_VERSION || "0.7.6";
 const soliditySettings = SOLIDITY_SETTINGS ? JSON.parse(SOLIDITY_SETTINGS) : undefined;
 
 const deterministicDeployment = (network: string): DeterministicDeploymentInfo => {
-    const info = getSingletonFactoryInfo(parseInt(network));
-    if (!info) {
-        throw new Error(`
-        Safe factory not found for network ${network}. You can request a new deployment at https://github.com/safe-global/safe-singleton-factory.
-        For more information, see https://github.com/safe-global/safe-contracts#replay-protection-eip-155
-      `);
-    }
+    // const info = getSingletonFactoryInfo(parseInt(network));
+    // if (!info) {
+    //     throw new Error(`
+    //     Safe factory not found for network ${network}. You can request a new deployment at https://github.com/safe-global/safe-singleton-factory.
+    //     For more information, see https://github.com/safe-global/safe-contracts#replay-protection-eip-155
+    //   `);
+    // }
+    // return {
+    //     factory: info.address,
+    //     deployer: info.signerAddress,
+    //     funding: BigNumber.from(info.gasLimit).mul(BigNumber.from(info.gasPrice)).toString(),
+    //     signedTx: info.transaction,
+    // };
+
+    // # bevm-testnet(11503)
+    // return {
+    //     factory: "0x914d7Fec6aaC8cd542e72Bca78B30650d45643d7",
+    //     deployer: "0xE1CB04A0fA36DdD16a06ea828007E35e1a3cBC37",
+    //     funding: BigNumber.from(50000000).mul(BigNumber.from(101616)).toString(),
+    //     signedTx: "0xf8a6808402faf08083018cf08080b853604580600e600039806000f350fe7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe03601600081602082378035828234f58015156039578182fd5b8082525050506014600cf3825a02a0f8ea5f1212ae52173f4b9b99bd18b62e0555da845834081215993317b48b3e1ca0757bd526f59d74395ede30cde3ab630fee4a9147e05081d700cf8d92d8cc16b0",
+    // };
+
+    // # bevm-mainnet(11501)
     return {
-        factory: info.address,
-        deployer: info.signerAddress,
-        funding: BigNumber.from(info.gasLimit).mul(BigNumber.from(info.gasPrice)).toString(),
-        signedTx: info.transaction,
+        factory: "0x914d7Fec6aaC8cd542e72Bca78B30650d45643d7",
+        deployer: "0xE1CB04A0fA36DdD16a06ea828007E35e1a3cBC37",
+        funding: BigNumber.from(50000000).mul(BigNumber.from(101616)).toString(),
+        signedTx: "0xf8a6808402faf08083018cf08080b853604580600e600039806000f350fe7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe03601600081602082378035828234f58015156039578182fd5b8082525050506014600cf38259fea0cd0786c5a8e7d2bb2575763be83434e8b6a1db63d6cc6afa405b6615569ec830a055d1f40376d1109a62e822e60e4312af9549ce13b93a21bd0b022f7bbd477047",
     };
 };
 
